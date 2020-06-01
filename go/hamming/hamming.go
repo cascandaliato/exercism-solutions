@@ -6,7 +6,7 @@ import "errors"
 // Distance calculates the Hamming distance between two DNA strands.
 func Distance(a, b string) (int, error) {
 	if len(a) != len(b) {
-		return -1, errors.New("the two DNA strands should have the same length")
+		return 0, errors.New("the two DNA strands should have the same length")
 	}
 
 	distance := 0
