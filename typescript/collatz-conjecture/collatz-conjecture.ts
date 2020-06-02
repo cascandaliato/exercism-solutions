@@ -1,18 +1,20 @@
 class CollatzConjecture {
-  static steps(number: number): number {
-    if (number < 1) {
+  static steps(n: number): number {
+    const COLLATZ_SEQUENCE_END = 1;
+
+    if (n < 1) {
       throw new Error('Only positive numbers are allowed');
     }
-    let numSteps = 0;
-    while (number != 1) {
-      numSteps++;
-      if (number % 2 == 0) {
-        number /= 2;
+    let sequenceLength = 0;
+    while (n !== COLLATZ_SEQUENCE_END) {
+      sequenceLength++;
+      if (n % 2 == 0) {
+        n /= 2;
       } else {
-        number = 3 * number + 1;
+        n = 3 * n + 1;
       }
     }
-    return numSteps;
+    return sequenceLength;
   }
 }
 
