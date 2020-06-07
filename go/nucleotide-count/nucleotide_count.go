@@ -1,19 +1,31 @@
+// Package dna provides utility functions to work with DNA strands.
 package dna
 
-// Histogram is a mapping from nucleotide to its count in given DNA.
-// Choose a suitable data type.
-type Histogram map[string]uint32
+import "fmt"
 
-// DNA is a list of nucleotides. Choose a suitable data type.
+// Histogram is a mapping from nucleotide to its count in given DNA.
+type Histogram map[rune]uint32
+
+// DNA is a sequence of nucleotides.
 type DNA string
 
+var nucleotides = map[rune]bool{
+	'A': true,
+	'C': true,
+	'G': true,
+	'T': true,
+}
+
 // Counts generates a histogram of valid nucleotides in the given DNA.
-// Returns an error if d contains an invalid nucleotide.
-///
-// Counts is a method on the DNA type. A method is a function with a special receiver argument.
-// The receiver appears in its own argument list between the func keyword and the method name.
-// Here, the Counts method has a receiver of type DNA named d.
 func (d DNA) Counts() (Histogram, error) {
-	var h Histogram
+	var h Histogram = map[rune]uint32{'A': 0, 'C': 0, 'G': 0, 'T': 0}
+
+	for _, n := range d {
+		if _, ok := nucleotides[n]; !ok {
+			return h, fmt.Errorf("DNA strand %s contains a non-valid nucleotide %c", d, n)
+		}
+		h[n]++
+	}
+
 	return h, nil
 }
