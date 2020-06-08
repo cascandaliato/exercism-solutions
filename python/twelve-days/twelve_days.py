@@ -1,16 +1,20 @@
 def recite(start_verse, end_verse):
-    nth = {1: 'first',
-           2: 'second',
-           3: 'third',
-           4: 'fourth',
-           5: 'fifth',
-           6: 'sixth',
-           7: 'seventh',
-           8: 'eighth',
-           9: 'ninth',
-           10: 'tenth',
-           11: 'eleventh',
-           12: 'twelfth'}
+    if start_verse < 1 or end_verse > 12 or start_verse > end_verse:
+        raise ValueError(
+            "The start verse should be less or equal than the end verse and both should be in the range 1-12 (1 and 12 included)")
+
+    nth = ['first',
+           'second',
+           'third',
+           'fourth',
+           'fifth',
+           'sixth',
+           'seventh',
+           'eighth',
+           'ninth',
+           'tenth',
+           'eleventh',
+           'twelfth']
 
     gifts = ["twelve Drummers Drumming",
              "eleven Pipers Piping",
@@ -27,7 +31,7 @@ def recite(start_verse, end_verse):
 
     verses = []
     for day in range(start_verse, end_verse + 1):
-        verse = f'On the {nth[day]} day of Christmas my true love gave to me: '
+        verse = f'On the {nth[day-1]} day of Christmas my true love gave to me: '
 
         last_gift = ('and ' if day > 1 else '') + gifts[-1]
         verse += ', '.join([gifts[-i]
