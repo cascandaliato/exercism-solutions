@@ -14,12 +14,13 @@ import "strings"
 func IsIsogram(s string) bool {
 	seen := map[rune]bool{}
 	for _, r := range strings.ToLower(s) {
-		if r != ' ' && r != '-' {
-			if _, ok := seen[r]; ok {
-				return false
-			}
-			seen[r] = true
+		if r == ' ' || r == '-' {
+			continue
 		}
+		if seen[r] {
+			return false
+		}
+		seen[r] = true
 	}
 	return true
 }
