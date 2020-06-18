@@ -1,4 +1,4 @@
-values = {
+VALUES = {
     1:  ('A', 'E', 'I', 'O', 'U', 'L', 'N', 'R', 'S', 'T'),
     2:  ('D', 'G'),
     3:  ('B', 'C', 'M', 'P'),
@@ -8,7 +8,8 @@ values = {
     10: ('Q', 'Z')
 }
 
+LETTER_VALUES = {l: v for v in VALUES.keys() for l in VALUES[v]}
+
 
 def score(word):
-    letter_values = {l: v for v in values.keys() for l in values[v]}
-    return sum(letter_values[l] for l in word.upper())
+    return sum(LETTER_VALUES[l] for l in word.upper())
