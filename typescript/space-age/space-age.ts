@@ -1,53 +1,33 @@
-enum Planet {
-  Earth,
-  Jupiter,
-  Mars,
-  Mercury,
-  Neptune,
-  Saturn,
-  Uranus,
-  Venus,
-}
+type Planet = 'Earth' | 'Jupiter' | 'Mars' | 'Mercury' | 'Neptune' | 'Saturn' | 'Uranus' | 'Venus';
 
 class Space {
-  private static readonly orbitalPeriods: { [key in Planet]: number } = {
-    [Planet.Earth]: 31557600,
-    get [Planet.Jupiter]() {
-      return 11.862615 * this[Planet.Earth];
-    },
-    get [Planet.Mars]() {
-      return 1.8808158 * this[Planet.Earth];
-    },
-    get [Planet.Mercury]() {
-      return 0.2408467 * this[Planet.Earth];
-    },
-    get [Planet.Neptune]() {
-      return 164.79132 * this[Planet.Earth];
-    },
-    get [Planet.Saturn]() {
-      return 29.447498 * this[Planet.Earth];
-    },
-    get [Planet.Uranus]() {
-      return 84.016846 * this[Planet.Earth];
-    },
-    get [Planet.Venus]() {
-      return 0.61519726 * this[Planet.Earth];
-    },
+  private static readonly earthYearSeconds = 31557600;
+
+  private static readonly earthOrbitalPeriods: Record<Planet, number> = {
+    Earth: 1.0,
+    Jupiter: 11.862615,
+    Mars: 1.8808158,
+    Mercury: 0.2408467,
+    Neptune: 164.79132,
+    Saturn: 29.447498,
+    Uranus: 84.016846,
+    Venus: 0.61519726,
   };
 
   constructor(public readonly seconds: number) {}
 
-  onEarth = (): number => this.roundedAge(Planet.Earth);
-  onJupiter = (): number => this.roundedAge(Planet.Jupiter);
-  onMars = (): number => this.roundedAge(Planet.Mars);
-  onMercury = (): number => this.roundedAge(Planet.Mercury);
-  onNeptune = (): number => this.roundedAge(Planet.Neptune);
-  onSaturn = (): number => this.roundedAge(Planet.Saturn);
-  onUranus = (): number => this.roundedAge(Planet.Uranus);
-  onVenus = (): number => this.roundedAge(Planet.Venus);
+  onEarth = (): number => this.age('Earth');
+  onJupiter = (): number => this.age('Jupiter');
+  onMars = (): number => this.age('Mars');
+  onMercury = (): number => this.age('Mercury');
+  onNeptune = (): number => this.age('Neptune');
+  onSaturn = (): number => this.age('Saturn');
+  onUranus = (): number => this.age('Uranus');
+  onVenus = (): number => this.age('Venus');
 
-  private roundedAge(planet: Planet): number {
-    return Math.round((100 * this.seconds) / Space.orbitalPeriods[planet]) / 100;
+  private age(planet: Planet): number {
+    const secondsInYear = Space.earthOrbitalPeriods[planet] * Space.earthYearSeconds;
+    return Math.round((100 * this.seconds) / secondsInYear) / 100;
   }
 }
 
