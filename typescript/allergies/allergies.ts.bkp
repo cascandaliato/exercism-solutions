@@ -1,0 +1,59 @@
+type Allergen =
+  | 'eggs'
+  | 'peanuts'
+  | 'shellfish'
+  | 'strawberries'
+  | 'tomatoes'
+  | 'chocolate'
+  | 'pollen'
+  | 'cats';
+
+const allergenToCode: Record<Allergen, number> = {
+  eggs: 1,
+  peanuts: 2,
+  shellfish: 4,
+  strawberries: 8,
+  tomatoes: 16,
+  chocolate: 32,
+  pollen: 64,
+  cats: 128,
+};
+
+const codeToAllergen = Object.keys(allergenToCode).reduce(
+  (obj, a) => ({ ...obj, [allergenToCode[a as Allergen]]: a }),
+  {},
+);
+
+const codes = Object.keys(codeToAllergen)
+  .map(Number)
+  .sort((a, b) => b - a);
+
+const isAllergenCode = (x: any): x is keyof typeof codeToAllergen => {
+  return codes.includes(x);
+};
+
+const allAllergens = codes.reduce((a, b) => a + b, 0);
+
+class Allergies {
+  private readonly allergens: Allergen[] = [];
+
+  constructor(score: number) {
+    score &= allAllergens;
+    for (const code of codes) {
+      if (score >= code && isAllergenCode(code)) {
+        this.allergens.unshift(codeToAllergen[code]);
+        score -= code;
+      }
+    }
+  }
+
+  allergicTo(allergen: Allergen): boolean {
+    return this.allergens.includes(allergen);
+  }
+
+  list(): Allergen[] {
+    return [...this.allergens];
+  }
+}
+
+export default Allergies;
