@@ -27,7 +27,11 @@ class Space {
 
   private age(planet: Planet): number {
     const secondsInYear = Space.earthOrbitalPeriods[planet] * Space.earthYearSeconds;
-    return Math.round((100 * this.seconds) / secondsInYear) / 100;
+    return Space.roundToTwoDecimals(this.seconds / secondsInYear);
+  }
+
+  private static roundToTwoDecimals(number: number): number {
+    return Math.round(100 * number) / 100;
   }
 }
 
