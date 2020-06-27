@@ -12,16 +12,11 @@ plants = {
 
 class Garden:
     def __init__(self, diagram, students=default_students):
-        self.diagram = diagram.split('\n')
-        self.students = sorted(students)
-
         self.studentPlants = {}
-        for student in students:
-            idx = self.students.index(student)
-            plantShortNames = ''.join(
-                map(lambda r: r[2 * idx: 2 * idx + 2], self.diagram))
-            self.studentPlants[student] = list(
-                map(lambda p: plants[p], plantShortNames))
+        for idx, student in enumerate(sorted(students)):
+            plantShortNames = ''.join(r[2 * idx: 2 * idx + 2]
+                                      for r in diagram.split('\n'))
+            self.studentPlants[student] = [plants[p] for p in plantShortNames]
 
     def plants(self, student):
         return self.studentPlants[student]
