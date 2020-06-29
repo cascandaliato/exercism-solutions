@@ -12,29 +12,20 @@ const allergenToCode = {
 type Allergen = keyof typeof allergenToCode;
 
 class Allergies {
-  private readonly allergens: Allergen[] = [];
-
-  constructor(score: number) {
-    const codes = Object.values(allergenToCode).sort((a, b) => b - a);
-
-    const allAllergens = codes.reduce((a, b) => a + b, 0);
-    score &= allAllergens;
-
-    for (const code of codes) {
-      if (score >= code) {
-        const allergen = Object.entries(allergenToCode).filter(([, c]) => c === code)[0][0];
-        this.allergens.unshift(allergen as Allergen);
-        score -= code;
-      }
-    }
-  }
+  constructor(private readonly score: number) {}
 
   allergicTo(allergen: Allergen): boolean {
-    return this.allergens.includes(allergen);
+    return this.list().includes(allergen);
   }
 
   list(): Allergen[] {
-    return [...this.allergens];
+    return (Object.entries(allergenToCode) as [Allergen, number][])
+      .filter(([_, c]) => this.getBit(Math.log2(c)) === 1)
+      .map(([a, _]) => a);
+  }
+
+  private getBit(position: number): number {
+    return (this.score >> position) & 1;
   }
 }
 
