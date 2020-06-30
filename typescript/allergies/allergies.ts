@@ -15,13 +15,11 @@ class Allergies {
   constructor(private readonly score: number) {}
 
   allergicTo(allergen: Allergen): boolean {
-    return this.list().includes(allergen);
+    return this.getBit(Math.log2(allergenToCode[allergen])) === 1;
   }
 
   list(): Allergen[] {
-    return (Object.entries(allergenToCode) as [Allergen, number][])
-      .filter(([_, c]) => this.getBit(Math.log2(c)) === 1)
-      .map(([a, _]) => a);
+    return (Object.keys(allergenToCode) as Allergen[]).filter(this.allergicTo.bind(this));
   }
 
   private getBit(position: number): number {
