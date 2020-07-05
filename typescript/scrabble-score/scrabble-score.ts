@@ -33,7 +33,7 @@ const hasScore = (ch: string): ch is Letter => {
   return ch in letterValues;
 };
 
-export default (word: string | undefined): number => {
+export default (word?: string): number => {
   if (word === undefined) {
     return 0;
   }
