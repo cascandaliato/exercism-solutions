@@ -1,2 +1,7 @@
 node_modules
 __pycache__
+.settings
+.gradle
+build
+bin
+tmp
