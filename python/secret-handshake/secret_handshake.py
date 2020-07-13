@@ -1,14 +1,9 @@
 def commands(number):
-    commands = [
-        (0, lambda c: c.append('wink')),
-        (1, lambda c: c.append('double blink')),
-        (2, lambda c: c.append('close your eyes')),
-        (3, lambda c: c.append('jump')),
-        (4, lambda c: c.reverse())
-    ]
+    actions = ['wink', 'double blink', 'close your eyes', 'jump']
 
     code = []
-    for pos, action in commands:
-        if (number >> pos) & 1:
-            action(code)
-    return code
+    for action in actions:
+        if number & 1:
+            code.append(action)
+        number >>= 1
+    return code[::-1] if number & 1 else code
