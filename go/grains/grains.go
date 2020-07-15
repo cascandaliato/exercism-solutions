@@ -1,6 +1,8 @@
 package grains
 
-import "errors"
+import (
+	"errors"
+)
 
 // Square returns the number of grains on the n-th square of a chess board, assuming that the first square holds one grain and the number of grains doubles on each successive square.
 func Square(sq int) (uint64, error) {
