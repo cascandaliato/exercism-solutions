@@ -1,23 +1,44 @@
 class Bob {
-  private readonly answers: {
-    pattern: RegExp;
-    answer: string;
-  }[] = [
-    // forceful question
-    { pattern: /^[^a-z]*[A-Z][^a-z]*\?\s*$/, answer: "Calm down, I know what I'm doing!" },
-    // regular question
-    { pattern: /^.*[a-z0-9].*\?\s*$/, answer: 'Sure.' },
-    // yelling
-    { pattern: /^[^a-z]*[A-Z][^a-z\?]*$/, answer: 'Whoa, chill out!' },
-    // nothing
-    { pattern: /^\s*$/, answer: 'Fine. Be that way!' },
-  ];
-
   hey(sentence: string): string {
-    for (const { pattern, answer } of this.answers) {
-      if (pattern.test(sentence)) return answer;
+    if (this.yelling(sentence)) {
+      return 'Whoa, chill out!';
+    } else if (this.forcefulQuestion(sentence)) {
+      return "Calm down, I know what I'm doing!";
+    } else if (this.regularQuestion(sentence)) {
+      return 'Sure.';
+    } else if (this.isEmptySentence(sentence)) {
+      return 'Fine. Be that way!';
+    } else {
+      return 'Whatever.';
     }
-    return 'Whatever.';
+  }
+
+  private yelling(sentence: string): boolean {
+    return this.isAllUppercase(sentence) && !this.endsWithAQuestionMark(sentence);
+  }
+
+  private forcefulQuestion(sentence: string): boolean {
+    return this.endsWithAQuestionMark(sentence) && this.isAllUppercase(sentence);
+  }
+
+  private regularQuestion(sentence: string): boolean {
+    return this.endsWithAQuestionMark(sentence) && !this.isAllUppercase(sentence);
+  }
+
+  private isEmptySentence(sentence: string): boolean {
+    return sentence.trim() === '';
+  }
+
+  private isAllUppercase(sentence: string): boolean {
+    return this.containsLetter(sentence) && sentence.toUpperCase() === sentence;
+  }
+
+  private endsWithAQuestionMark(sentence: string): boolean {
+    return sentence.trim().endsWith('?');
+  }
+
+  private containsLetter(sentence: string): boolean {
+    return /[a-zA-Z]/.test(sentence);
   }
 }
 
