@@ -10,7 +10,7 @@ class School:
         self.grades[grade].sort()
 
     def roster(self):
-        return [s for g in sorted(self.grades.keys()) for s in self.grades[g]]
+        return [student for grade in sorted(self.grades.keys()) for student in self.grades[grade]]
 
     def grade(self, grade_number):
         return self.grades[grade_number]
