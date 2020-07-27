@@ -9,12 +9,16 @@ func Handshake(c uint) []string {
 		if c&1 == 1 {
 			h = append(h, a)
 		}
-		c = c >> 1
+		c >>= 1
 	}
 	if c&1 == 1 {
-		for i, j := 0, len(h)-1; i < j; i, j = i+1, j-1 {
-			h[i], h[j] = h[j], h[i]
-		}
+		reverse(h)
 	}
 	return h
+}
+
+func reverse(s []string) {
+	for i := range s[:len(s)/2] {
+		s[i], s[len(s)-1-i] = s[len(s)-1-i], s[i]
+	}
 }
