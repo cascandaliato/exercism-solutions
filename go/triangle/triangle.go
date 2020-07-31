@@ -22,23 +22,22 @@ const (
 
 // KindFromSides classifies a triangle given its sides.
 func KindFromSides(a, b, c float64) Kind {
-	if isValidTriangle(a, b, c) {
-		if a == b && b == c {
-			return Equ
-		} else if a == b || a == c || b == c {
-			return Iso
-		} else {
-			return Sca
-		}
-	} else {
+	switch {
+	case !isValidTriangle(a, b, c):
 		return NaT
+	case a == b && b == c:
+		return Equ
+	case a == b, a == c, b == c:
+		return Iso
+	default:
+		return Sca
 	}
 }
 
-func isValidSide(side float64) bool {
-	return side > 0 && !math.IsNaN(side) && !math.IsInf(side, 0)
+func isValidNumber(n float64) bool {
+	return n != 0 && !math.IsInf(n, 0)
 }
 
 func isValidTriangle(a, b, c float64) bool {
-	return isValidSide(a) && isValidSide(b) && isValidSide(c) && a+b >= c && a+c >= b && b+c >= a
+	return isValidNumber(a*b*c) && a+b >= c && a+c >= b && b+c >= a
 }
