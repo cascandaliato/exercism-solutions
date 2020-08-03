@@ -1,14 +1,15 @@
 class Matrix {
-  rows: number[][] = [];
-  columns: number[][] = [];
+  constructor(private matrix: string) {}
 
-  constructor(matrix: string) {
-    matrix.split('\n').forEach((row) => this.rows.push(row.split(' ').map(Number)));
+  get rows(): number[][] {
+    return this.matrix.split('\n').map((row) => row.split(' ').map(Number));
+  }
 
-    this.rows[0].forEach((_, colIdx) => {
-      const column = this.rows.map((row) => row[colIdx]);
-      this.columns.push(column);
-    });
+  get columns(): number[][] {
+    return this.rows[0].reduce(
+      (columns, _, colIdx) => [...columns, this.rows.map((row) => row[colIdx])],
+      [] as number[][],
+    );
   }
 }
 
