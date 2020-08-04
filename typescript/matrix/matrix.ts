@@ -6,8 +6,12 @@ class Matrix {
   }
 
   get columns(): number[][] {
-    return this.rows[0].reduce(
-      (columns, _, colIdx) => [...columns, this.rows.map((row) => row[colIdx])],
+    return this.transpose(this.rows);
+  }
+
+  private transpose(matrix: number[][]): number[][] {
+    return matrix[0].reduce(
+      (columns, _, colIdx) => [...columns, matrix.map((row) => row[colIdx])],
       [] as number[][],
     );
   }
