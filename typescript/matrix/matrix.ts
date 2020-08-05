@@ -2,11 +2,15 @@ class Matrix {
   constructor(private matrix: string) {}
 
   get rows(): number[][] {
-    return this.matrix.split('\n').map((row) => row.split(' ').map(Number));
+    return this.splitIntoRows(this.matrix);
   }
 
   get columns(): number[][] {
     return this.transpose(this.rows);
+  }
+
+  private splitIntoRows(matrix: string): number[][] {
+    return matrix.split('\n').map((row) => row.split(' ').map(Number));
   }
 
   private transpose(matrix: number[][]): number[][] {
