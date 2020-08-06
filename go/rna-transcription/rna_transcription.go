@@ -1,18 +1,17 @@
 // Package strand provides utility functions to manipulate DNA and RNA strands.
 package strand
 
-var dnaToRna = map[string]string{
-	"G": "C",
-	"C": "G",
-	"T": "A",
-	"A": "U",
+var dnaToRna = map[rune]string{
+	'G': "C",
+	'C': "G",
+	'T': "A",
+	'A': "U",
 }
 
 // ToRNA converts a DNA strand into a RNA strand.
-func ToRNA(dna string) string {
-	rna := ""
+func ToRNA(dna string) (rna string) {
 	for _, v := range dna {
-		rna += dnaToRna[string(v)]
+		rna += dnaToRna[v]
 	}
-	return rna
+	return
 }
