@@ -2,14 +2,14 @@ class Matrix {
   constructor(private matrix: string) {}
 
   get rows(): number[][] {
-    return this.splitIntoRows(this.matrix);
+    return this.parseInputLines(this.matrix);
   }
 
   get columns(): number[][] {
     return this.transpose(this.rows);
   }
 
-  private splitIntoRows(matrix: string): number[][] {
+  private parseInputLines(matrix: string): number[][] {
     return matrix.split('\n').map((row) => row.split(' ').map(Number));
   }
 
