@@ -1,5 +1,3 @@
-My solutions to [exercism.io](https://exercism.io/) exercises.
+My solutions to [exercism.org](https://exercism.org/) exercises.
 
-[![Exercism statistics](https://img.shields.io/badge/dynamic/json?color=009caa&label=published%20solutions&logo=exercism&logoColor=white&query=total&url=https%3A%2F%2Fexercism-stats-scraper.netlify.app%2Fapi%2Fsolutions%3Fuser%3Dcascandaliato&style=for-the-badge)](https://exercism.io/profiles/cascandaliato)
-
-(Like the badge? Visit my [exercism stats scraper](https://github.com/cascandaliato/exercism-stats-scraper) repo.)
+[![problems solved on exercism.org](https://img.shields.io/badge/dynamic/json?style=for-the-badge&color=604fcd&label=published%20solutions&query=meta.total_count&url=https%3A%2F%2Fexercism.org%2Fapi%2Fv2%2Fprofiles%2Fcascandaliato%2Fsolutions&labelColor=%23111827&logo=exercism&logoColor=white&cacheSeconds=604800)](https://exercism.org/profiles/cascandaliato)
