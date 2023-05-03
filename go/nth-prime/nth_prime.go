@@ -1,11 +1,14 @@
 package prime
 
-import "math/big"
+import (
+	"errors"
+	"math/big"
+)
 
 // Nth returns the n-th prime number.
-func Nth(n int) (int, bool) {
+func Nth(n int) (int, error) {
 	if n <= 0 {
-		return 0, false
+		return 0, errors.New("parameter n must be greater than zero")
 	}
 
 	p := 2
@@ -18,5 +21,5 @@ func Nth(n int) (int, bool) {
 		}
 	}
 
-	return p, true
+	return p, nil
 }
