@@ -1,4 +1,4 @@
-// Package romannumerals provides utility functions for Roman numberals.
+// Package romannumerals provides utility functions for Roman numerals.
 package romannumerals
 
 import (
@@ -8,13 +8,13 @@ import (
 
 var letters []rune = []rune{'I', 'V', 'X', 'L', 'C', 'D', 'M'}
 
-// ToRomanNumeral converts any positive number up to 3,000 into a Roman numeral.
+// ToRomanNumeral converts any positive number up to 3,999 into a Roman numeral.
 func ToRomanNumeral(arabic int) (string, error) {
-	var roman []rune
-	if arabic <= 0 || arabic > 3000 {
-		return string(roman), errors.New("cannot convert numbers <= 0 or > 3000")
+	if arabic <= 0 || arabic > 3999 {
+		return "", errors.New("cannot convert numbers <= 0 or > 3999")
 	}
 
+	roman := make([]rune, 0)
 	a := []rune(strconv.Itoa(arabic))
 	for i, j := len(a)-1, 0; i >= 0; i, j = i-1, j+2 {
 		if a[i] == '0' {
