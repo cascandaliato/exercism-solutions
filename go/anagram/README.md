@@ -1,37 +1,52 @@
 # Anagram
 
-An anagram is a rearrangement of letters to form a new word.
-Given a word and a list of candidates, select the sublist of anagrams of the given word.
+Welcome to Anagram on Exercism's Go Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
 
-Given `"listen"` and a list of candidates like `"enlists" "google"
-"inlets" "banana"` the program should return a list containing
-`"inlets"`.
+## Instructions
 
-## Coding the solution
+An anagram is a rearrangement of letters to form a new word: for example `"owns"` is an anagram of `"snow"`.
+A word is not its own anagram: for example, `"stop"` is not an anagram of `"stop"`.
 
-Look for a stub file having the name anagram.go
-and place your solution code in that file.
+Given a target word and a set of candidate words, this exercise requests the anagram set: the subset of the candidates that are anagrams of the target.
 
-## Running the tests
+The target and candidates are words of one or more ASCII alphabetic characters (`A`-`Z` and `a`-`z`).
+Lowercase and uppercase characters are equivalent: for example, `"PoTS"` is an anagram of `"sTOp"`, but `StoP` is not an anagram of `sTOp`.
+The anagram set is the subset of the candidate set that are anagrams of the target (in any order).
+Words in the anagram set should have the same letter case as in the candidate set.
 
-To run the tests run the command `go test` from within the exercise directory.
+Given the target `"stone"` and candidates `"stone"`, `"tones"`, `"banana"`, `"tons"`, `"notes"`, `"Seton"`, the anagram set is `"tones"`, `"notes"`, `"Seton"`.
 
-If the test suite contains benchmarks, you can run these with the `--bench` and `--benchmem`
-flags:
-
-    go test -v --bench . --benchmem
-
-Keep in mind that each reviewer will run benchmarks on a different machine, with
-different specs, so the results from these benchmark tests may vary.
-
-## Further information
-
-For more detailed information about the Go track, including how to get help if
-you're having trouble, please visit the exercism.io [Go language page](http://exercism.io/languages/go/resources).
+Unlike other tracks, the Go version of the exercise includes test cases that use UTF-8 (non-ASCII) characters in the strings.
+However, with Go's first-class support for UTF-8 given by the `rune` type, that should not bother you too much.
 
 ## Source
 
-Inspired by the Extreme Startup game [https://github.com/rchatley/extreme_startup](https://github.com/rchatley/extreme_startup)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @mikegehard
+
+### Contributed to by
+
+- @alebaffa
+- @bitfield
+- @ekingery
+- @ferhatelmas
+- @henrik
+- @hilary
+- @ilmanzo
+- @kf8a
+- @kytrinyx
+- @leenipper
+- @markijbema
+- @petertseng
+- @robphoenix
+- @sebito91
+- @strangeman
+- @tleen
+- @tompao
+- @eklatzer
+
+### Based on
+
+Inspired by the Extreme Startup game - https://github.com/rchatley/extreme_startup
