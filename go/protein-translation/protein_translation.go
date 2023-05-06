@@ -23,39 +23,21 @@ var ErrInvalidBase = errors.New("cannot convert an invalid codon into an amino a
 // FromCodon converts a codon into the corresponding amino acid.
 func FromCodon(codon string) (string, error) {
 	switch codon {
+	case "UGC", "UGU":
+		return cysteine, nil
+	case "UUA", "UUG":
+		return leucine, nil
 	case "AUG":
 		return methionine, nil
-	case "UUU":
+	case "UUC", "UUU":
 		return phenylalanine, nil
-	case "UUC":
-		return phenylalanine, nil
-	case "UUA":
-		return leucine, nil
-	case "UUG":
-		return leucine, nil
-	case "UCU":
+	case "UCA", "UCC", "UCG", "UCU":
 		return serine, nil
-	case "UCC":
-		return serine, nil
-	case "UCA":
-		return serine, nil
-	case "UCG":
-		return serine, nil
-	case "UAU":
-		return tyrosine, nil
-	case "UAC":
-		return tyrosine, nil
-	case "UGU":
-		return cysteine, nil
-	case "UGC":
-		return cysteine, nil
 	case "UGG":
 		return tryptophan, nil
-	case "UAA":
-		return "", ErrStop
-	case "UAG":
-		return "", ErrStop
-	case "UGA":
+	case "UAC", "UAU":
+		return tyrosine, nil
+	case "UAA", "UAG", "UGA":
 		return "", ErrStop
 	default:
 		return "", ErrInvalidBase
