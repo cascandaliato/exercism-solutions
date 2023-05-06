@@ -29,14 +29,12 @@ func countLetters(s string) map[rune]int {
 }
 
 func areCountersEqual(a map[rune]int, b map[rune]int) bool {
-	for keyA, valueA := range a {
-		if valueB, ok := b[keyA]; !ok || valueA != valueB {
-			return false
-		}
+	if len(a) != len(b) {
+		return false
 	}
 
-	for keyB, valueB := range b {
-		if valueA, ok := a[keyB]; !ok || valueA != valueB {
+	for keyA, valueA := range a {
+		if valueB, ok := b[keyA]; !ok || valueA != valueB {
 			return false
 		}
 	}
