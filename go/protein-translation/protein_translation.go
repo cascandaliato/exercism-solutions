@@ -4,20 +4,18 @@ import (
 	"errors"
 )
 
-type protein string
-
 const (
-	methionine    protein = "Methionine"
-	phenylalanine protein = "Phenylalanine"
-	leucine       protein = "Leucine"
-	serine        protein = "Serine"
-	tyrosine      protein = "Tyrosine"
-	cysteine      protein = "Cysteine"
-	tryptophan    protein = "Tryptophan"
-	stop          protein = "STOP"
+	methionine    = "Methionine"
+	phenylalanine = "Phenylalanine"
+	leucine       = "Leucine"
+	serine        = "Serine"
+	tyrosine      = "Tyrosine"
+	cysteine      = "Cysteine"
+	tryptophan    = "Tryptophan"
+	stop          = "STOP"
 )
 
-var codonToProtein = map[string]protein{
+var codonToProtein = map[string]string{
 	"AUG": methionine,
 	"UUU": phenylalanine,
 	"UUC": phenylalanine,
@@ -37,7 +35,7 @@ var codonToProtein = map[string]protein{
 	"UGA": stop,
 }
 
-// ErrStop happens when trying to convert a 'STOP' codon to protein.
+// ErrStop happens when trying to convert a 'STOP' codon into a protein.
 var ErrStop = errors.New("cannot convert a 'STOP' codon into a protein")
 
 // ErrInvalidBase happens when an invalid codon value is specified.
@@ -45,38 +43,28 @@ var ErrInvalidBase = errors.New("cannot convert an invalid codon into a protein"
 
 // FromCodon converts a codon into the corresponding protein.
 func FromCodon(codon string) (string, error) {
-	p, ok := codonToProtein[codon]
+	protein, ok := codonToProtein[codon]
 	if !ok {
 		return "", ErrInvalidBase
 	}
-	if p == stop {
+	if protein == stop {
 		return "", ErrStop
 	}
-	return string(p), nil
+	return protein, nil
 }
 
 // FromRNA converts an RNA sequence into a sequence of proteins.
 func FromRNA(rna string) ([]string, error) {
 	var proteins []string
-
-	var codon string
-	var i int
-	for _, ch := range rna {
-		codon += string(ch)
-
-		if (i+1)%3 == 0 {
-			protein, err := FromCodon(codon)
-			if err == ErrInvalidBase {
-				return proteins, err
-			}
+	for i := 0; i < len(rna); i += 3 {
+		protein, err := FromCodon(rna[i : i+3])
+		if err != nil {
 			if err == ErrStop {
 				break
 			}
-			proteins = append(proteins, protein)
-			codon = ""
+			return proteins, err
 		}
-
-		i++
+		proteins = append(proteins, protein)
 	}
 	return proteins, nil
 }
