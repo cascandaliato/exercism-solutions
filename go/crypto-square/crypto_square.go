@@ -2,37 +2,43 @@ package cryptosquare
 
 import (
 	"math"
-	"regexp"
 	"strings"
 )
 
 // Encode encodes a plaintext using the square code technique.
 func Encode(plaintext string) string {
-	re := regexp.MustCompile(`[^a-zA-Z0-9]+`)
-	plaintext = re.ReplaceAllLiteralString(strings.ToLower(plaintext), "")
-	l := len(plaintext)
+	plaintext = normalize(plaintext)
 
-	var transposed []string
-	c := int(math.Ceil(math.Sqrt(float64(l))))
+	numColumns := int(math.Ceil(math.Sqrt(float64(len(plaintext)))))
+	columns := make([]string, 0, numColumns)
 
-	for i := 0; i < c; i++ {
-		var s []byte
-		for j := 0; j < c; j++ {
-			// last row of the square could be empty
-			if j == c-1 && l <= c*(c-1) {
-				break
-			}
-			ch := byte(' ')
-			if j*c+i < l {
-				ch = plaintext[j*c+i]
-			}
-			s = append(s, ch)
-			if ch == ' ' {
-				break
+	var column strings.Builder
+	for c := 0; c < numColumns; c++ {
+		column.Reset()
+		for r := 0; r < numColumns; r++ {
+			if position := r*numColumns + c; position < len(plaintext) {
+				column.WriteByte(plaintext[position])
+			} else if len(plaintext) > r*numColumns {
+				// it's a square but not a perfect square, i.e. the last row is incomplete but not empty
+				// in this case some columns will need padding
+				column.WriteByte(' ')
 			}
 		}
-		transposed = append(transposed, string(s))
+		columns = append(columns, column.String())
 	}
 
-	return strings.Join(transposed, " ")
+	return strings.Join(columns, " ")
+}
+
+func normalize(text string) string {
+	var sb strings.Builder
+	for _, ch := range text {
+		if (ch < 'a' || ch > 'z') &&
+			(ch < 'A' || ch > 'Z') &&
+			(ch < '0' || ch > '9') {
+			continue
+		}
+		sb.WriteRune(ch)
+	}
+	return strings.ToLower(sb.String())
 }
