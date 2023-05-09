@@ -3,6 +3,7 @@ package cryptosquare
 import (
 	"math"
 	"strings"
+	"unicode"
 )
 
 // Encode encodes a plaintext using the square code technique.
@@ -43,9 +44,9 @@ func normalize(text string) string {
 		if !isValid(ch) {
 			continue
 		}
-		sb.WriteRune(ch)
+		sb.WriteRune(unicode.ToLower(ch))
 	}
-	return strings.ToLower(sb.String())
+	return sb.String()
 }
 
 func isValid(ch rune) bool {
