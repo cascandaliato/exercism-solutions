@@ -1,5 +1,10 @@
 package cars
 
+const (
+	costOfOneCar  = 10_000
+	costOfTenCars = 95_000
+)
+
 // CalculateWorkingCarsPerHour calculates how many working cars are
 // produced by the assembly line every hour.
 func CalculateWorkingCarsPerHour(productionRate int, successRate float64) float64 {
@@ -14,5 +19,5 @@ func CalculateWorkingCarsPerMinute(productionRate int, successRate float64) int 
 
 // CalculateCost works out the cost of producing the given number of cars.
 func CalculateCost(carsCount int) uint {
-	return uint(carsCount/10*95000 + (carsCount%10)*10000)
+	return uint(carsCount/10*costOfTenCars + (carsCount%10)*costOfOneCar)
 }
