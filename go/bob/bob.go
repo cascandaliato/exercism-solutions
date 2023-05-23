@@ -6,7 +6,6 @@
 package bob
 
 import (
-	"fmt"
 	"strings"
 	"unicode"
 )
@@ -39,7 +38,6 @@ func isQuestion(remark string) bool {
 func isUpper(remark string) bool {
 	containsLetter := false
 	for _, r := range remark {
-		fmt.Println(r, unicode.IsLetter(r), !unicode.IsUpper(r))
 		if unicode.IsLetter(r) {
 			containsLetter = true
 			if !unicode.IsUpper(r) {
