@@ -13,26 +13,20 @@ import (
 // Hey should have a comment documenting it.
 func Hey(remark string) string {
 	remark = strings.TrimSpace(remark)
+	if remark == "" {
+		return "Fine. Be that way!"
+	}
+
 	switch {
-	case isQuestion(remark) && isUpper(remark):
+	case strings.HasSuffix(remark, "?") && isUpper(remark):
 		return "Calm down, I know what I'm doing!"
-	case isQuestion(remark):
+	case strings.HasSuffix(remark, "?"):
 		return "Sure."
 	case isUpper(remark):
 		return "Whoa, chill out!"
-	case remark == "":
-		return "Fine. Be that way!"
 	default:
 		return "Whatever."
 	}
-}
-
-func isQuestion(remark string) bool {
-	var last rune
-	for _, r := range remark {
-		last = r
-	}
-	return last == '?'
 }
 
 func isUpper(remark string) bool {
